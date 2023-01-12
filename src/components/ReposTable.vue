@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <table id="firstTable">
-      <thead>
+      <thead v-if="repos.length > 0">
         <tr>
           <th>Name</th>
           <th>Access</th>
@@ -31,7 +31,9 @@
           <td v-if="!isGeneralMode && repoDetails">
             {{ repoDetails.comments }}
           </td>
-          <td v-if="!isGeneralMode && repoDetails">{{ repoDetails.stars }}</td>
+          <td v-if="!isGeneralMode && repoDetails">
+            {{ repoDetails.stargazers }}
+          </td>
         </tr>
       </tbody>
     </table>

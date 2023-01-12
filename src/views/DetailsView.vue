@@ -1,6 +1,6 @@
 <template>
-  <div v-if="repo[0].name" class="about">
-    <ReposTable :repos="repo" :mode="mode" />
+  <div v-if="repo[0]" class="about">
+    <ReposTable :repos="repo" :mode="mode" :repoDetails="repoDetails" />
   </div>
   <div v-else class="about">
     <h1>No repos yet!</h1>
@@ -19,29 +19,30 @@ export default {
     return {
       repo: [this.$route.params.repo],
       mode: consts.TABLE_MODE_DETAIL,
-      repoDetails: { commits: null, comments: null, stars: null },
+      repoDetails: { commits: null, comments: null, stargazers: null },
     };
   },
   methods: {
-    created() {
-      console.log("log", this.repo);
+    async fetchRepoDetails(property) {
+      const repoName = this.repo[0].name;
+      const ownerName = this.repo[0].owner.login;
+      const response = await fetch(
+        ` https://api.github.com/repos/${ownerName}/${repoName}/${property}`
+      );
+      if (response.status === 200) {
+        const commits = await response.json();
+        this.repoDetails[property] = commits.length;
+      } else if (response.status === 404) {
+        this.repoDetails[property] = "n/a";
+      }
     },
-    // fetchRepoDetails(repo) {
-    //   // const repoName = repo[0].name;
-    //   // const ownerName = repo[0].owner.login;
-    //   // response = await fetch(`https://api.github.com/users/${USERNAME}`)
-    //   console.log("search", this.response.status === "200");
-    //   if (this.response.status === "200") {
-    //     // fetch repo
-    //     // this.repos =
-    //     // fetch commit, comment, stars = obiekt repoDetails
-    //     this.userExists = true;
-    //   } else if (this.response.status === "404") {
-    //     this.msgAboutUser = `User ${this.username} does not exist.`;
-    //     this.userExists = false;
-    //   }
-    // this.username = "";
-    // },
+  },
+  async created() {
+    if (this.repo[0] !== undefined) {
+      for (const property of ["commits", "comments", "stargazers"]) {
+        await this.fetchRepoDetails(property);
+      }
+    }
   },
 };
 </script>

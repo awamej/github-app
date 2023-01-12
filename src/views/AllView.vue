@@ -19,11 +19,6 @@ export default {
       repos: this.$route.params.repos,
     };
   },
-  methods: {
-    created() {
-      console.log("log", this.repos);
-    },
-  },
 };
 </script>
 <style scoped>
