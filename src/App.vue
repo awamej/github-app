@@ -2,8 +2,8 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/details">Repo details</router-link> |
-      <router-link to="/all">All repos</router-link>
+      <router-link to="/details" class="disabled">Repo details</router-link> |
+      <router-link to="/all" class="disabled">All repos</router-link>
     </nav>
     <router-view />
   </div>
@@ -29,5 +29,10 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 </style>

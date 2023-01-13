@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SearchUser msg="Welcome to my GitHub App!" />
+    <SearchUser msg="Welcome to my GitHub App!" :user="user" />
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   name: "HomeView",
   components: {
     SearchUser,
+  },
+  data() {
+    return {
+      user: this.$route.params.user,
+    };
   },
 };
 </script>

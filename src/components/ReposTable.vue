@@ -64,7 +64,6 @@ export default {
   },
   computed: {
     isGeneralMode: function () {
-      console.log("mode", this.mode === this.generalMode);
       return this.mode === this.generalMode;
     },
   },

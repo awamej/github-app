@@ -44,10 +44,14 @@ export default {
   },
   props: {
     msg: String,
+    user: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
-      username: "",
+      username: this.user ? this.user : "",
       usernameSearched: "",
       userExists: false,
       repos: [],
@@ -69,20 +73,17 @@ export default {
       this.username = "";
     },
   },
+  async created() {
+    if (this.username !== "") {
+      await this.searchUser();
+    }
+  },
 };
 </script>
 
 <style scoped>
 h3 {
   margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 a {
   color: #42b983;
