@@ -4,7 +4,7 @@ This app enables you to view repos of existing GitHub users.
 
 **Functionalities:**
 
-- search for GitHib user
+- search for GitHub user
 - view the first 5 repos if user exists
 - view some repo details or go to it
 - view all repos if more than 5
